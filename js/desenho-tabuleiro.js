@@ -1,9 +1,4 @@
-var botaoIniciar = document.querySelector(".iniciar-jogo");
 var areaJogo = document.querySelector(".area-de-jogo");
-
-botaoIniciar.addEventListener("click", function(){
-    criarTabuleiroDaForca();
-});
 
 function criarTabuleiroDaForca(){
     areaJogo.innerHTML = "<canvas width='1200px' height='800px'></canvas>";
@@ -13,10 +8,10 @@ function criarTabuleiroDaForca(){
     pincel.fillStyle = "sandybrown";
     pincel.fillRect(0, 0, 1200, 800);
 
-    EstruturaDaForca(pincel);
+    estruturaDaForca(pincel);
 }
 
-function EstruturaDaForca(pincel){
+function estruturaDaForca(pincel){
     pincel.fillStyle = "brown";
 
     pincel.beginPath();
