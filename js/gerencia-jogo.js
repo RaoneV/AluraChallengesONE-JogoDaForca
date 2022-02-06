@@ -15,8 +15,10 @@ function letraPrecionada(){
     pagina.addEventListener("keypress", function(event){
         console.log(event.key);
         if(event.key.replace(/[^A-Z]/g, "") == event.key){
-            if(verificarSePalavraContemLetra(event.key)){
+            let posicoes = verificarSePalavraContemLetra(event.key);
+            if(posicoes.length > 0){
                 console.log("acertou letra");
+                desenharLetraCorreta(event.key, posicoes);
             }
             else{
                 console.log("errou letra");
@@ -36,11 +38,12 @@ function sortearPalavra(){
 }
 
 function verificarSePalavraContemLetra(letraDigitada){
+    let posicoes = [];
     for(let i = 0; i < palavraSecreta.length; i++){
         if(palavraSecreta[i] == letraDigitada){
-            return true;
+            posicoes.push(i);
         }
     }
 
-    return false;
+    return posicoes;
 }
