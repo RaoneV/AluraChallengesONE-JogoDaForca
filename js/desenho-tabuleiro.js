@@ -3,6 +3,7 @@ const corForca = "brown";
 const corLetraEscolhida = "black";
 var pincel;
 var posicoesLetrasX = [];
+var posicaoLetraErradaX = 800;
 
 function criarTabuleiroDaForca(){
     areaJogo.innerHTML = "<canvas width='1200px' height='800px'></canvas>";
@@ -60,15 +61,26 @@ function posicaoDasLetras(quantLetras){
     });
 }
 
-function desenharLetraCorreta(letra, posicoes){
-    let coordXCentralTraco;
-
+function estilizarTextoDesenhado(){
     pincel.fillStyle = corLetraEscolhida;
     pincel.font = "bold 40px arial";
     pincel.textAlign = "center";
+}
+
+function desenharLetraCorreta(letra, posicoes){
+    let coordXCentralTraco;
+
+    estilizarTextoDesenhado();
 
     for(let i = 0; i < posicoes.length; i++){
         coordXCentralTraco = posicoesLetrasX[posicoes[i]]+20;
         pincel.fillText(letra, coordXCentralTraco, 770);
     }
+}
+
+function desenharLetraIncorreta(letra){
+    estilizarTextoDesenhado();
+
+    pincel.fillText(letra, posicaoLetraErradaX, 350);
+    posicaoLetraErradaX += 40;
 }
