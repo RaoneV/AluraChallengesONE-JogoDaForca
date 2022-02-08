@@ -2,6 +2,7 @@ var palavras = ["ALURA", "ORACLE", "CHALLENGE", "PROGRAMACAO", "LOGICA"];
 var botaoIniciar = document.querySelector(".iniciar-jogo");
 var pagina = document.querySelector("body");
 var palavraSecreta = "";
+var quantidadeLetrasCertas = 0;
 var letrasErradas = [];
 var fimDeJogo = false;
 
@@ -30,6 +31,7 @@ function letraPrecionada(){
 function desenharLetraNoTabuleiro(posicoes, letra){
     if(posicoes.length > 0){
         desenharLetraCorreta(letra, posicoes);
+        verificarSeJogadorVenceu();
     }
     else{
         if(!letrasErradas.includes(letra)){
@@ -53,6 +55,7 @@ function verificarSePalavraContemLetra(letraDigitada){
     for(let i = 0; i < palavraSecreta.length; i++){
         if(palavraSecreta[i] == letraDigitada){
             posicoes.push(i);
+            quantidadeLetrasCertas++;
         }
     }
 
@@ -63,5 +66,12 @@ function verificarSeJogadorPerdeu(){
     if(letrasErradas.length >= 6){
         fimDeJogo = true;
         desenharMensagemDeDerrota();
+    }
+}
+
+function verificarSeJogadorVenceu(){
+    if(quantidadeLetrasCertas == palavraSecreta.length){
+        fimDeJogo = true;
+        desenharMensagemDeVitoria();
     }
 }

@@ -169,5 +169,12 @@ function desenharMensagemDeDerrota(){
     estilizarTextoDesenhado("red");
 
     pincel.fillText("Fim de Jogo", 700, 500, 200);
-    pincel.fillText("Você Perdeu!", 700, 550, 200);
+    pincel.fillText("Você Perdeu!", 700, 550, 250);
+}
+
+function desenharMensagemDeVitoria(){
+    estilizarTextoDesenhado("green");
+
+    pincel.fillText("Você venceu", 700, 500, 250);
+    pincel.fillText("Parabéns!", 700, 550, 200);
 }
