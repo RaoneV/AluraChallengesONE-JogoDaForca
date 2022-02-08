@@ -24,6 +24,7 @@ function letraPrecionada(){
                 if(!letrasErradas.includes(event.key)){
                     desenharLetraIncorreta(event.key);
                     letrasErradas.push(event.key);
+                    desenharBonecoNaForca(letrasErradas.length);
                 }
             }
         }
