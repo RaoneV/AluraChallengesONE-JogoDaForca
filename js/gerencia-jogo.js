@@ -3,6 +3,7 @@ var botaoIniciar = document.querySelector(".iniciar-jogo");
 var pagina = document.querySelector("body");
 var palavraSecreta = "";
 var letrasErradas = [];
+var fimDeJogo = false;
 
 botaoIniciar.addEventListener("click", function(){
     criarTabuleiroDaForca();
@@ -14,24 +15,30 @@ botaoIniciar.addEventListener("click", function(){
 
 function letraPrecionada(){
     pagina.addEventListener("keypress", function(event){
-        console.log(event.key);
-        if(event.key.replace(/[^A-Z]/g, "") == event.key){
-            let posicoes = verificarSePalavraContemLetra(event.key);
-            if(posicoes.length > 0){
-                desenharLetraCorreta(event.key, posicoes);
+        if(!fimDeJogo){
+            if(event.key.replace(/[^A-Z]/g, "") == event.key){
+                let posicoes = verificarSePalavraContemLetra(event.key);
+                desenharLetraNoTabuleiro(posicoes, event.key);
             }
             else{
-                if(!letrasErradas.includes(event.key)){
-                    desenharLetraIncorreta(event.key);
-                    letrasErradas.push(event.key);
-                    desenharBonecoNaForca(letrasErradas.length);
-                }
+                console.log("invalido");
             }
         }
-        else{
-            console.log("invalido");
-        }
     });
+}
+
+function desenharLetraNoTabuleiro(posicoes, letra){
+    if(posicoes.length > 0){
+        desenharLetraCorreta(letra, posicoes);
+    }
+    else{
+        if(!letrasErradas.includes(letra)){
+            desenharLetraIncorreta(letra);
+            letrasErradas.push(letra);
+            desenharBonecoNaForca(letrasErradas.length);
+            verificarSeJogadorPerdeu();
+        }
+    }
 }
 
 function sortearPalavra(){
@@ -50,4 +57,11 @@ function verificarSePalavraContemLetra(letraDigitada){
     }
 
     return posicoes;
+}
+
+function verificarSeJogadorPerdeu(){
+    if(letrasErradas.length >= 6){
+        fimDeJogo = true;
+        desenharMensagemDeDerrota();
+    }
 }

@@ -2,7 +2,6 @@ var areaJogo = document.querySelector(".area-de-jogo");
 const corFundo = "#CDE6F5";
 const corForca = "brown";
 const corCorda = "#E0BF00";
-const corLetraEscolhida = "black";
 var pincel;
 var posicoesLetrasX = [];
 var posicaoLetraErradaX = 800;
@@ -142,16 +141,16 @@ function posicaoDasLetras(quantLetras){
     });
 }
 
-function estilizarTextoDesenhado(){
-    pincel.fillStyle = corLetraEscolhida;
+function estilizarTextoDesenhado(corTexto){
+    pincel.fillStyle = corTexto;
     pincel.font = "bold 40px arial";
     pincel.textAlign = "center";
 }
 
 function desenharLetraCorreta(letra, posicoes){
     let coordXCentralTraco;
-
-    estilizarTextoDesenhado();
+    
+    estilizarTextoDesenhado("black");
 
     for(let i = 0; i < posicoes.length; i++){
         coordXCentralTraco = posicoesLetrasX[posicoes[i]]+20;
@@ -160,8 +159,15 @@ function desenharLetraCorreta(letra, posicoes){
 }
 
 function desenharLetraIncorreta(letra){
-    estilizarTextoDesenhado();
+    estilizarTextoDesenhado("black");
 
     pincel.fillText(letra, posicaoLetraErradaX, 350);
     posicaoLetraErradaX += 40;
+}
+
+function desenharMensagemDeDerrota(){
+    estilizarTextoDesenhado("red");
+
+    pincel.fillText("Fim de Jogo", 700, 500, 200);
+    pincel.fillText("Você Perdeu!", 700, 550, 200);
 }
