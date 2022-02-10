@@ -7,25 +7,32 @@ var letrasErradas = [];
 var fimDeJogo = false;
 
 botaoIniciar.addEventListener("click", function(){
+    inicializarVariaveisGerencia();
+    
     criarTabuleiroDaForca();
     
     sortearPalavra();
 
-    letraPrecionada();
+    pagina.addEventListener("keypress", letraPrecionada);
 });
 
-function letraPrecionada(){
-    pagina.addEventListener("keypress", function(event){
-        if(!fimDeJogo){
-            if(event.key.replace(/[^A-Z]/g, "") == event.key){
-                let posicoes = verificarSePalavraContemLetra(event.key);
-                desenharLetraNoTabuleiro(posicoes, event.key);
-            }
-            else{
-                console.log("invalido");
-            }
+function inicializarVariaveisGerencia(){
+    palavraSecreta = "";
+    quantidadeLetrasCertas = 0;
+    letrasErradas.length = 0;
+    fimDeJogo = false;
+}
+
+function letraPrecionada(event){
+    if(!fimDeJogo){
+        if(event.key.replace(/[^A-Z]/g, "") == event.key){
+            let posicoes = verificarSePalavraContemLetra(event.key);
+            desenharLetraNoTabuleiro(posicoes, event.key);
         }
-    });
+        else{
+            console.log("invalido");
+        }
+    }
 }
 
 function desenharLetraNoTabuleiro(posicoes, letra){

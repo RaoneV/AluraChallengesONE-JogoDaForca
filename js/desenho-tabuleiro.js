@@ -6,10 +6,18 @@ var pincel;
 var posicoesLetrasX = [];
 var posicaoLetraErradaX = 800;
 
+function inicializarVariaveisDesenho(){
+    pincel.clearRect(0, 0, 1200, 800);
+    posicoesLetrasX.length = 0;
+    posicaoLetraErradaX = 800;
+}
+
 function criarTabuleiroDaForca(){
     areaJogo.innerHTML = "<canvas width='1200px' height='800px'></canvas>";
-    var tabuleiro = document.querySelector("canvas");
+    let tabuleiro = document.querySelector("canvas");
     pincel = tabuleiro.getContext("2d");
+
+    inicializarVariaveisDesenho();
 
     pincel.fillStyle = corFundo;
     pincel.fillRect(0, 0, 1200, 800);
