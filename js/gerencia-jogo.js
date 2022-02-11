@@ -1,5 +1,7 @@
 var palavras = ["ALURA", "ORACLE", "CHALLENGE", "PROGRAMACAO", "LOGICA"];
 var botaoIniciar = document.querySelector(".iniciar-jogo");
+var botaoAdicionar = document.querySelector(".adicionar-palavra");
+var palavraNova = document.querySelector(".palavra-nova");
 var pagina = document.querySelector("body");
 var palavraSecreta = "";
 var quantidadeLetrasCertas = 0;
@@ -28,9 +30,6 @@ function letraPrecionada(event){
         if(event.key.replace(/[^A-Z]/g, "") == event.key){
             let posicoes = verificarSePalavraContemLetra(event.key);
             desenharLetraNoTabuleiro(posicoes, event.key);
-        }
-        else{
-            console.log("invalido");
         }
     }
 }
@@ -80,5 +79,22 @@ function verificarSeJogadorVenceu(){
     if(quantidadeLetrasCertas == palavraSecreta.length){
         fimDeJogo = true;
         desenharMensagemDeVitoria();
+    }
+}
+
+botaoAdicionar.addEventListener("click", adicionarNovaPalavraAoJogo);
+
+function adicionarNovaPalavraAoJogo(){
+    if(palavraNova.value.replace(/[^A-Za-z]/g, "") == palavraNova.value && palavraNova.value != ""){
+        let palavraMaiuscula = palavraNova.value.toUpperCase();
+        palavras.push(palavraMaiuscula);
+        palavraNova.value = "";
+
+        let mensagem = document.querySelector(".mensagem-palavra-adicionada");
+        mensagem.textContent = "Palavra adicionada!";
+
+        let limpar = setTimeout(function(){
+            mensagem.textContent = "";
+        }, 2000);
     }
 }
