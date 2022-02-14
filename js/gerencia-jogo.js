@@ -5,6 +5,7 @@ var palavraNova = document.querySelector(".palavra-nova");
 var pagina = document.querySelector("body");
 var palavraSecreta = "";
 var quantidadeLetrasCertas = 0;
+var letrasCertas = [];
 var letrasErradas = [];
 var fimDeJogo = false;
 
@@ -21,6 +22,7 @@ botaoIniciar.addEventListener("click", function(){
 function inicializarVariaveisGerencia(){
     palavraSecreta = "";
     quantidadeLetrasCertas = 0;
+    letrasCertas.length = 0;
     letrasErradas.length = 0;
     fimDeJogo = false;
 }
@@ -40,11 +42,13 @@ function desenharLetraNoTabuleiro(posicoes, letra){
         verificarSeJogadorVenceu();
     }
     else{
-        if(!letrasErradas.includes(letra)){
-            desenharLetraIncorreta(letra);
-            letrasErradas.push(letra);
-            desenharBonecoNaForca(letrasErradas.length);
-            verificarSeJogadorPerdeu();
+        if(!letrasCertas.includes(letra)){
+            if(!letrasErradas.includes(letra)){
+                desenharLetraIncorreta(letra);
+                letrasErradas.push(letra);
+                desenharBonecoNaForca(letrasErradas.length);
+                verificarSeJogadorPerdeu();
+            }
         }
     }
 }
@@ -58,11 +62,17 @@ function sortearPalavra(){
 
 function verificarSePalavraContemLetra(letraDigitada){
     let posicoes = [];
-    for(let i = 0; i < palavraSecreta.length; i++){
-        if(palavraSecreta[i] == letraDigitada){
-            posicoes.push(i);
-            quantidadeLetrasCertas++;
+    if(!letrasCertas.includes(letraDigitada)){
+        for(let i = 0; i < palavraSecreta.length; i++){
+            if(palavraSecreta[i] == letraDigitada){
+                posicoes.push(i);
+                quantidadeLetrasCertas++;
+            }
         }
+    }
+
+    if(posicoes.length > 0){
+        letrasCertas.push(letraDigitada);
     }
 
     return posicoes;
